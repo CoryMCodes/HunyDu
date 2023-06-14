@@ -1,5 +1,7 @@
-import { toDoFactory } from "./tdTask";
-import { taskHolder } from "./informationHolder";
+import { toDoFactory } from "./taskFactory";
+import { taskHolder, projectHolder } from "./informationHolder";
+import { projectFactory } from "./projectFactory";
+import { buildTaskList } from "./viewController";
 
 const createTDForm = () => {
   // create form 
@@ -40,13 +42,56 @@ const createTDForm = () => {
     let submittedName =  document.querySelector("[name=TaskName]").value;
     let submittedDescription = document.querySelector("[name=TaskDescription]").value;
     let newTask = toDoFactory(submittedName, submittedDescription);
-    console.log("Name: " + newTask.getName() + "Description: " + newTask.getDescription() )
     
     taskHolder.addTask(newTask);
     console.log("Task Added");
+    taskHolder.allTasks.forEach((task, index) => {
+      console.log(index+1 +": Name: "+task.getName()+" Description: "+task.getDescription())
+    })
+
+    // build task view with function from viewController module
+    buildTaskList(taskHolder.allTasks);
   })
 
   return form
 }
 
-export { createTDForm };
+const createProjectForm = () => {
+  // create form 
+  let form = document.createElement("form");
+  form.classList.add("projectForm");
+  
+  // task name input  
+  let projectName = document.createElement("input");
+  projectName.setAttribute("type", "text");
+  projectName.setAttribute("name", "ProjectName");
+  let nameLabel = document.createElement("label");
+  nameLabel.setAttribute("for", "Project Name");
+  nameLabel.innerText = "Project Name:";
+
+   //create submit button
+   let submit = document.createElement("input");
+   submit.setAttribute("type", "submit"); 
+   submit.innerText = "Submit";
+
+  form.appendChild(nameLabel);
+  form.appendChild(projectName);
+  form.appendChild(submit);
+
+  //add event listener
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let submittedName =  document.querySelector("[name=ProjectName]").value;
+    let newProject = projectFactory(submittedName);
+
+    projectHolder.addProject(newProject);
+    projectHolder.allProjects.forEach((project, index) => {
+      console.log(index+1 + ": " + project.getName())
+    })
+  })
+
+
+  return form;
+  }
+
+export { createTDForm, createProjectForm };

@@ -2,10 +2,20 @@ const taskHolder = (() => {
   let allTasks = [];
 
   const addTask = (taskObj) => {
-    let length = allTasks.push(taskObj);
+    allTasks.push(taskObj);
   }
 
   return { allTasks, addTask }
 })();
 
-export {taskHolder}
+const projectHolder = (() => {
+  let allProjects = [];
+
+  const addProject = (projObj) => {
+    allProjects.push(projObj);
+  }
+
+  return {allProjects, addProject}
+})();
+
+export {taskHolder, projectHolder}
