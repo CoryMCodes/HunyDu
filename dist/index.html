@@ -6,8 +6,23 @@
   <title>HunyDu</title>
 </head>
 <body>
-  <div id="content"></div>
-  <div id="allTasks"></div>
+  <header style="display:flex; width: 80%; gap: 25px; height: 3rem; background-color: #FF794D; color:white">
+    <div style="margin-right: auto">HunnyDu</div>
+    <div id="addTask">Task +</div>
+    <div id="addProject">Project +</div>
+  </header>
+  <div id="formContainer"></div>
+  <div id="content" style="display:flex; gap: 50px;">
+    <div style="display: flex; flex-direction: column;">
+      <h2>Tasks</h2>
+      <div id="allTasks">
+      </div>
+    </div>
+    <div>
+      <h2>Projects</h2>
+      <div id="allProjects" style="display: flex;"></div>
+    </div>
+  </div>
   <script src="bundle.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ import { taskHolder} from "./informationHolder";
 
 
 const form1 = createTDForm();
-document.getElementById("content").appendChild(form1);
+document.getElementById("formContainer").appendChild(form1);
 
 const projectForm = createProjectForm();
-document.getElementById("content").appendChild(projectForm);
+document.getElementById("formContainer").appendChild(projectForm);

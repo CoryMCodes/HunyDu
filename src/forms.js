@@ -1,7 +1,7 @@
 import { toDoFactory } from "./taskFactory";
 import { taskHolder, projectHolder } from "./informationHolder";
 import { projectFactory } from "./projectFactory";
-import { buildTaskList } from "./viewController";
+import { buildTaskList, buildProjectList   } from "./viewController";
 
 const createTDForm = () => {
   // create form 
@@ -82,12 +82,14 @@ const createProjectForm = () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     let submittedName =  document.querySelector("[name=ProjectName]").value;
-    let newProject = projectFactory(submittedName);
+    let newProject = projectFactory(submittedName, toDoFactory("Test Task 1", "task one test"), toDoFactory("Test Task 2", "task two test"));
 
     projectHolder.addProject(newProject);
     projectHolder.allProjects.forEach((project, index) => {
       console.log(index+1 + ": " + project.getName())
     })
+
+    buildProjectList(projectHolder.allProjects)    
   })
 
 

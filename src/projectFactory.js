@@ -11,11 +11,7 @@ const projectFactory = (name, ...args) => {
     taskArray.push(task);
   }
 
-  const getTasks = () => {
-    taskArray.forEach((index, task) => {
-      console.log(index+1+": "+ task)
-    })
-  }
+  const getTasks = () => taskArray;
   
   return {getName, changeName, addTask, getTasks}
 }

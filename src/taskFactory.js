@@ -1,9 +1,12 @@
 const toDoFactory = (name, description) => {
-  let id;
   let dueDate;
+  let parentProject;
 
-  const getId = () => id;
-  const setId = (num) => id = num;
+  const setParentProject = (num) => parentProject = num; 
+
+  function setId(num) {
+    return id = num;
+  }
 
   const getName = () => name;
   
@@ -15,7 +18,7 @@ const toDoFactory = (name, description) => {
   }
   const getDescription = () => description;
 
-  return {getId, setId, getName, setDueDate, getDescription}
+  return {setId, getName, setDueDate, getDescription, setParentProject}
 }
 
 export {toDoFactory};
