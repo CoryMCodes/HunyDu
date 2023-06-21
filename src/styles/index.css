@@ -1,0 +1,175 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	background-color:#F67B50;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+#container{
+	position: relative;
+}
+
+.header{
+	display: flex;
+	height: 100px;
+	width: 100%;
+	font-size: 3rem;
+	align-items: center;
+	background-color: #FBC490;
+	color: white;
+	padding: 0 50px;
+	box-sizing: border-box;
+}
+
+.header>div>button{
+	background-color: none;
+	border: none;
+	color: white;
+	font-size: 2rem;
+	background-color: inherit;
+}
+
+.header>div>button:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.header>div:first-child{
+	flex-grow: 1;
+	margin-left: 20px;
+}
+
+.header>div+div{
+	align-items: center;
+	display: flex;
+	gap: 15px;
+	margin-right: 20px;
+}
+
+.hidden{
+	display: none !important;
+}
+
+.modal{
+	position: absolute;
+	display: block;
+  position: fixed;
+  float: left;
+  left: calc(50% - 150px);
+  bottom: 50%;
+  translate: (-50%,-50%);
+  width: 300px;
+  height: auto;
+  min-height: 100px;
+  text-align: center;
+	border: #644B52 2px solid;
+  border-radius: 10px;
+	color: white;
+	background-color: #FBC490;
+	font-size: 1.5rem;
+	padding: 10px 0px;
+}
+
+.taskForm{
+	display: flex;
+	flex-direction: column;
+	padding: 15px 15px;
+}
+
+.taskForm>input{
+	margin-bottom: 15px;
+}
+
+.taskForm>[type="submit"]{
+	background-color: white;
+	color: #644B52;
+	width: 30%;
+	margin: 0 auto;
+	padding: 10px 5px;
+	border-radius: 30px;
+	border: 1px solid #644B52;
+}
+
+.fa-angle-down{
+	transform: rotate(-90deg);
+	pointer-events: auto;
+}
+
+.fa-angle-down.rotate{
+	transition: all 2s ease-in-out;
+	transform: rotate(0deg);
+}
+
+.fa-angle-down:hover{
+	cursor: pointer;
+}
+
+.taskDescDrawer{
+	transition:height 1s ease-out;
+	height:0px;
+	overflow:hidden;
+}
+
+@media only screen and (min-width: 20em) {
+	.header{
+		flex-direction: column;
+		padding: 10px;
+		gap: 15px;
+		height: 125px;
+	}
+	.header>div:first-child{
+		flex-grow: unset;
+	}
+
+	.taskCard{
+		width: 80%;
+		color:white;
+		margin: 0 auto;
+		padding: 10px 20px;
+		border-radius: 5px;
+		border-bottom: solid 1px #FDFDFD;
+		margin-bottom: 5px;
+	}
+}

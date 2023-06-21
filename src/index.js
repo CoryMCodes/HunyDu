@@ -2,10 +2,8 @@
 import { toDoFactory } from "./taskFactory";
 import {createTDForm, createProjectForm} from "./forms";
 import { taskHolder} from "./informationHolder";
+import "./styles/index.css"
+import { buildHomePage } from "./viewController";
+import '@fortawesome/fontawesome-free/js/all'
 
-
-const form1 = createTDForm();
-document.getElementById("formContainer").appendChild(form1);
-
-const projectForm = createProjectForm();
-document.getElementById("formContainer").appendChild(projectForm);
+buildHomePage();

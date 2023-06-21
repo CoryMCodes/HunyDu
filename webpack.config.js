@@ -1,4 +1,6 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = {
   mode: 'development',
@@ -7,6 +9,11 @@ module.exports = {
   devServer: {
     static: './dist',
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'HunnyDu',
+    }),
+  ],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -18,6 +25,13 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(svg|eot|woff|woff2|ttf)$/,
+        loader: 'file-loader',
+        options: {
+          outputPath: 'fonts'
+        }
+      }
     ],
   },
 };

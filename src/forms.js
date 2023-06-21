@@ -1,7 +1,7 @@
 import { toDoFactory } from "./taskFactory";
 import { taskHolder, projectHolder } from "./informationHolder";
 import { projectFactory } from "./projectFactory";
-import { buildTaskList, buildProjectList   } from "./viewController";
+import { buildTaskList, buildProjectList, removeModal   } from "./viewController";
 
 const createTDForm = () => {
   // create form 
@@ -51,6 +51,7 @@ const createTDForm = () => {
 
     // build task view with function from viewController module
     buildTaskList(taskHolder.allTasks);
+    removeModal();
   })
 
   return form
