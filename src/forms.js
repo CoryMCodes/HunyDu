@@ -83,14 +83,15 @@ const createProjectForm = () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     let submittedName =  document.querySelector("[name=ProjectName]").value;
-    let newProject = projectFactory(submittedName, toDoFactory("Test Task 1", "task one test"), toDoFactory("Test Task 2", "task two test"));
+    let newProject = projectFactory(submittedName);
 
     projectHolder.addProject(newProject);
     projectHolder.allProjects.forEach((project, index) => {
       console.log(index+1 + ": " + project.getName())
     })
 
-    buildProjectList(projectHolder.allProjects)    
+    buildProjectList(projectHolder.allProjects);
+    removeModal();    
   })
 
 

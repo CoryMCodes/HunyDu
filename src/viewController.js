@@ -26,19 +26,33 @@ const buildHomePage = () => {
 const container = document.createElement("div");
 container.setAttribute("id", "container");
 
-const formContainer = document.createElement("div");
-formContainer.setAttribute("id", "formContainer");
-container.appendChild(formContainer);
-
-const projectForm = createProjectForm();
-formContainer.appendChild(projectForm);
-
 const taskContainer = document.createElement("div");
-taskContainer.setAttribute("id", "allTasks");
+taskContainer.classList.add("list-container");
+const taskTitle = document.createElement("div");
+taskTitle.classList.add("container-title");
+const taskListContainer = document.createElement("div");
+taskListContainer.setAttribute("id", "allTasks");
+const taskListDefaultText = document.createTextNode("Use Task+ To Add Tasks!")
+taskListContainer.appendChild(taskListDefaultText);
+const taskTitleText = document.createTextNode("Task List");
+taskTitle.appendChild(taskTitleText);
+taskContainer.appendChild(taskTitle);
+taskContainer.appendChild(taskListContainer);
 container.appendChild(taskContainer);
 
 const projectContainer = document.createElement("div");
-projectContainer.setAttribute("id", "allProjects");
+projectContainer.classList.add("list-container");
+projectContainer.classList.add("project-container");
+const projectContainerTitle = document.createElement("div");
+const projectContainerTitleText = document.createTextNode("Projects");
+projectContainerTitle.appendChild(projectContainerTitleText)
+projectContainerTitle.classList.add("container-title");
+projectContainer.appendChild(projectContainerTitle);
+const projectListContainer = document.createElement("div");
+projectListContainer.setAttribute("id", "allProjects");
+const projectListContainerDefaultText = document.createTextNode("Use Project+ to add project!");
+projectListContainer.appendChild(projectListContainerDefaultText);
+projectContainer.appendChild(projectListContainer);
 container.append(projectContainer);
 
 // add event listeners
@@ -97,7 +111,7 @@ const buildTaskCard = (task, index) =>{
     let taskName = document.createElement("div");
     let taskNameText = document.createTextNode(String((Number(index)+1)).padStart(2,"0") + ": " + task.getName());
     let dropDownArrow = document.createElement("i");
-    dropDownArrow.classList.add("fa-solid", "fa-angle-down");
+    dropDownArrow.classList.add("fa-solid", "fa-angle-down", "arrow-span");
     let taskDesc = document.createElement("div");
     let taskDescText = document.createTextNode("Notes: " + task.getDescription());
     taskDesc.classList.add('taskDescDrawer');
@@ -109,7 +123,6 @@ const buildTaskCard = (task, index) =>{
 
     taskCard.addEventListener("click", (e) => {
       if(e.target.closest(".fa-angle-down")){
-        console.log(e.target.closest(".fa-angle-down"));
         e.target.closest(".fa-angle-down").classList.contains("rotate") ? e.target.closest(".fa-angle-down").classList.remove("rotate") : e.target.closest(".fa-angle-down").classList.add("rotate");
         toggleDrawer(taskDesc);
       }
