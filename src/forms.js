@@ -1,7 +1,7 @@
 import { toDoFactory } from "./taskFactory";
 import { taskHolder, projectHolder } from "./informationHolder";
 import { projectFactory } from "./projectFactory";
-import { buildTaskList, buildProjectList, removeModal   } from "./viewController";
+import { buildTaskList, buildProjectList, removeModal } from "./viewController";
 
 const createTDForm = () => {
   // create form 
@@ -44,12 +44,9 @@ const createTDForm = () => {
     let newTask = toDoFactory(submittedName, submittedDescription);
     
     taskHolder.addTask(newTask);
-    console.log("Task Added");
-    taskHolder.allTasks.forEach((task, index) => {
-      console.log(index+1 +": Name: "+task.getName()+" Description: "+task.getDescription())
-    })
 
     // build task view with function from viewController module
+    buildProjectList(projectHolder.allProjects);
     buildTaskList(taskHolder.allTasks);
     removeModal();
   })
@@ -69,7 +66,25 @@ const createProjectForm = () => {
   let nameLabel = document.createElement("label");
   nameLabel.setAttribute("for", "Project Name");
   nameLabel.innerText = "Project Name:";
-
+  let projectFormTaskContainer = document.createElement("div");
+  projectFormTaskContainer.classList.add("project-form-tasks");
+  
+  // build task checkboxes to add tasks to new project
+  if(taskHolder.allTasks){
+    taskHolder.allTasks.forEach(task => {
+      let taskLabel = document.createElement("label");
+      taskLabel.setAttribute("for", "add-"+task.getName());
+      let taskLabelText = document.createTextNode(task.getName());
+      taskLabel.appendChild(taskLabelText);
+      let taskInput = document.createElement("input");
+      taskInput.setAttribute("type", "checkbox");
+      taskInput.setAttribute("name", task.getName());
+      taskInput.setAttribute("id", "add-"+task.getName());
+      taskInput.classList.add("addTaskCheckbox");
+      projectFormTaskContainer.appendChild(taskLabel);
+      projectFormTaskContainer.appendChild(taskInput);
+    })
+}
    //create submit button
    let submit = document.createElement("input");
    submit.setAttribute("type", "submit"); 
@@ -77,20 +92,27 @@ const createProjectForm = () => {
 
   form.appendChild(nameLabel);
   form.appendChild(projectName);
+  form.appendChild(projectFormTaskContainer);
   form.appendChild(submit);
 
   //add event listener
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     let submittedName =  document.querySelector("[name=ProjectName]").value;
-    let newProject = projectFactory(submittedName);
-
-    projectHolder.addProject(newProject);
-    projectHolder.allProjects.forEach((project, index) => {
-      console.log(index+1 + ": " + project.getName())
+    
+    let projectTasks = document.querySelectorAll(".addTaskCheckbox");
+    projectTasks.forEach(task => {
+      if(task.checked){
+        let taskObj = taskHolder.getTaskByName(task.name);
+        taskObj.setParentProject(submittedName);
+      }
     })
+    let newProject = projectFactory(submittedName);
+    
+    projectHolder.addProject(newProject);
 
     buildProjectList(projectHolder.allProjects);
+    buildTaskList(taskHolder.allTasks);
     removeModal();    
   })
 

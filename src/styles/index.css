@@ -52,6 +52,7 @@ table {
 	display: flex;
 	padding: 0 25px;
 	gap: 25px;
+	height: 80vh;
 }
 
 .header{
@@ -96,22 +97,42 @@ table {
 }
 
 .list-container{
-	background-color: #FBC490;
+	background-color: white;
 	margin-top: 20px;
 	border-radius: 10px;
 	padding: 10px 15px;
-	color: white;
+	width: 200px;
 }
 
 .project-container{
 	flex-grow: 1;
+	overflow-x: auto;
+}
+
+#allProjects{
+	display: flex;
+	gap: 10px
+}
+
+
+.project{
+	padding: 10px 10px;
+	border-radius: 10px;
+	border: #F67B50 solid 1px;
+	min-width: 250px;
+	height: fit-content;
+	
+}
+
+.project-container>.container-title{
+	text-align: start;
 }
 
 .container-title{
 	text-align: center;
-	font-size: 1.5rem;
+	font-size: 2rem;
 	text-decoration: underline;
-	margin-bottom: 6px;
+	margin-bottom: 12px;
 }
 
 .modal{
@@ -176,7 +197,7 @@ table {
 	transition:height 1s ease-out;
 	height:0px;
 	overflow:hidden;
-	border-bottom: 1px white solid;
+	border-bottom: 1px black solid;
 	margin-bottom: 12px;
 }
 

@@ -3,9 +3,6 @@ const projectFactory = (name, ...args) => {
   let taskArray = args;
   
   const getName = () => pName;
-  const changeName = (string) =>  pName = string;
-
-  const getID = () => {return };
   
   const addTask = (task) => {
     taskArray.push(task);
@@ -13,7 +10,7 @@ const projectFactory = (name, ...args) => {
 
   const getTasks = () => taskArray;
   
-  return {getName, changeName, addTask, getTasks}
+  return {getName, addTask, getTasks}
 }
 
 export { projectFactory }

@@ -26,6 +26,7 @@ const buildHomePage = () => {
 const container = document.createElement("div");
 container.setAttribute("id", "container");
 
+// create main task container
 const taskContainer = document.createElement("div");
 taskContainer.classList.add("list-container");
 const taskTitle = document.createElement("div");
@@ -40,6 +41,7 @@ taskContainer.appendChild(taskTitle);
 taskContainer.appendChild(taskListContainer);
 container.appendChild(taskContainer);
 
+// create main project container
 const projectContainer = document.createElement("div");
 projectContainer.classList.add("list-container");
 projectContainer.classList.add("project-container");
@@ -93,23 +95,31 @@ const buildAddModal = (id) => {
 
 
 const buildTaskList = (tasks) => {
+  // reset task container
   let allTaskContainer = document.getElementById("allTasks");
   allTaskContainer.innerHTML = "";
   
+  // get passed tasks
   let allTasks = tasks
 
-  allTasks.forEach((task, index) => {
-    let card = buildTaskCard(task, index);
-    allTaskContainer.appendChild(card);
-    
+  allTasks.forEach(task => {
+    // build task ui
+    let taskCard = buildTaskCard(task);
+    // filter for if task has project - append to related project or to all tasks
+    if(task.getHasProject()){
+      let projectTaskList = document.getElementById(`${task.getParentProject()}-tasklist`);
+      projectTaskList.appendChild(taskCard);
+    }else{
+      allTaskContainer.appendChild(taskCard);
+    }
   })
 }
 
-const buildTaskCard = (task, index) =>{
+const buildTaskCard = (task) =>{
     let taskCard = document.createElement("div");
     taskCard.classList.add("taskCard");
     let taskName = document.createElement("div");
-    let taskNameText = document.createTextNode(String((Number(index)+1)).padStart(2,"0") + ": " + task.getName());
+    let taskNameText = document.createTextNode(task.getName());
     let dropDownArrow = document.createElement("i");
     dropDownArrow.classList.add("fa-solid", "fa-angle-down", "arrow-span");
     let taskDesc = document.createElement("div");
@@ -130,7 +140,7 @@ const buildTaskCard = (task, index) =>{
     return taskCard
 }
 
-//slid down animation
+//slide down animation
 const slideDown = elem => elem.style.height = `${elem.scrollHeight}px`;
 const slideUp = elem => elem.style.height = 0;
 const toggleDrawer = (elem) => {
@@ -142,36 +152,35 @@ const toggleDrawer = (elem) => {
 }
 
 const buildProjectList = (projects) => {
+  // build project container
   let allProjectsContainer = document.getElementById("allProjects");
   let allProjects = projects;
   allProjectsContainer.innerHTML = "";
+  // if projects exsist build a conatiner for each project
+  if(projects){
   allProjects.forEach((project, index) => {
     // build container for project object
     let projectContainer = document.createElement("div");
-    let taskList = document.createElement("ul");
-    projectContainer.setAttribute("id", "project-"+(Number(index)+1));
+    projectContainer.setAttribute("id", "project-"+project.getName());
+    projectContainer.classList.add("project");
     // build project title
     let projectName = document.createElement("div");
     let projectNameText = document.createTextNode("Project " + (Number(index)+1) + ": " + project.getName());
+    let taskContainer = document.createElement("div");
+    
+    // build and reset task container
+    taskContainer.setAttribute("id", `${project.getName()}-tasklist`)
+    taskContainer.innerHTML = "";
+
+    // append project
     projectName.appendChild(projectNameText);
     projectContainer.appendChild(projectName);
+    projectContainer.appendChild(taskContainer);
 
-    // if project has tasks build sub-tasks list
-    if(project.getTasks != null){
-      project.getTasks().forEach(task => {
-        console.log(task.getName() + " : " + task.getDescription())
-        let listItem = document.createElement("li");
-        let listText = document.createTextNode(task.getName() + ' - ' + task.getDescription())
-        listItem.appendChild(listText);
-        taskList.append(listItem);
-       
-      }) 
-      projectContainer.appendChild(taskList);
-    }
-    
-   
+    // append project to project container
     allProjectsContainer.appendChild(projectContainer);
   })
+}
 }
 const removeModal = () => {
   const modal = document.getElementsByClassName("modal")[0];
