@@ -6,17 +6,18 @@ const toDoFactory = (name, description) => {
   let hasProject;
 
   const setParentProject = (string) => {
-    console.log("set parent runs")
-    parentProject = string;
+    updateParentProject(string);
     setHasProject(true);
   };
 
   const removeParentProject = () => {
-    parentProject = "";
+    updateParentProject("");
     setHasProject(false);
   }
 
   const getHasProject = () => hasProject;
+
+  const updateParentProject = (string) => parentProject = string;
   
   const setHasProject = (bool) => hasProject = bool;
 

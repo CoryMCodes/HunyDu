@@ -1,4 +1,5 @@
 import {createTDForm, createProjectForm} from "./forms";
+import { taskHolder, projectHolder } from "./informationHolder";
 
 const buildHomePage = () => {
   //build index header
@@ -122,11 +123,20 @@ const buildTaskCard = (task) =>{
     let taskNameText = document.createTextNode(task.getName());
     let dropDownArrow = document.createElement("i");
     dropDownArrow.classList.add("fa-solid", "fa-angle-down", "arrow-span");
+    let completeCheck = document.createElement("i");
+    completeCheck.classList.add("fa-solid", "fa-check");
+    let deleteX = document.createElement("i");
+    deleteX.classList.add("fa-solid", "fa-x")
+    let moveArrows = document.createElement("i");
+    moveArrows.classList.add("fa-solid", "fa-arrows-up-down-left-right")
     let taskDesc = document.createElement("div");
     let taskDescText = document.createTextNode("Notes: " + task.getDescription());
     taskDesc.classList.add('taskDescDrawer');
     taskDesc.appendChild(taskDescText);
     taskName.appendChild(taskNameText);
+    taskName.appendChild(moveArrows);
+    taskName.appendChild(deleteX);
+    taskName.appendChild(completeCheck);
     taskName.appendChild(dropDownArrow);
     taskCard.appendChild(taskName);
     taskCard.appendChild(taskDesc);
@@ -136,6 +146,12 @@ const buildTaskCard = (task) =>{
         e.target.closest(".fa-angle-down").classList.contains("rotate") ? e.target.closest(".fa-angle-down").classList.remove("rotate") : e.target.closest(".fa-angle-down").classList.add("rotate");
         toggleDrawer(taskDesc);
       }
+      if(e.target.closest(".fa-x")){
+        taskHolder.deleteTask(task.getName());
+         buildProjectList(projectHolder.allProjects);
+         buildTaskList(taskHolder.allTasks);
+       
+      };
     })
     return taskCard
 }

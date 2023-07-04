@@ -6,6 +6,14 @@ const taskHolder = (() => {
     allTasks.push(taskObj);
   }
 
+  const deleteTask = (string) => {
+    console.log("delte runs")
+    let foundIndex = allTasks.findIndex((el) => el.getName() === string);
+    if (foundIndex > -1){
+      allTasks.splice(foundIndex, 1);
+    }
+  }
+
   const getTaskByName = (string) =>{
     let foundTaskObj
     allTasks.forEach(task => {
@@ -16,7 +24,7 @@ const taskHolder = (() => {
     return foundTaskObj;
   }
 
-  return { allTasks, addTask, getTaskByName }
+  return { allTasks, addTask, getTaskByName, deleteTask }
 })();
 
 const projectHolder = (() => {
