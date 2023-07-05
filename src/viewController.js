@@ -34,8 +34,6 @@ const taskTitle = document.createElement("div");
 taskTitle.classList.add("container-title");
 const taskListContainer = document.createElement("div");
 taskListContainer.setAttribute("id", "allTasks");
-const taskListDefaultText = document.createTextNode("Use Task+ To Add Tasks!")
-taskListContainer.appendChild(taskListDefaultText);
 const taskTitleText = document.createTextNode("Task List");
 taskTitle.appendChild(taskTitleText);
 taskContainer.appendChild(taskTitle);
@@ -68,6 +66,7 @@ addProjectButton.addEventListener("click", (e) => {
 })
 
 document.body.appendChild(container)
+buildTaskList(taskHolder.allTasks)
 }
 
 // task modal
@@ -114,6 +113,12 @@ const buildTaskList = (tasks) => {
       allTaskContainer.appendChild(taskCard);
     }
   })
+
+  // Render instruction message if All Task List is empty
+  if(allTaskContainer.children.length === 0){
+    const taskListDefaultText = document.createTextNode("Use Task+ To Add Tasks!")
+    allTaskContainer.appendChild(taskListDefaultText);
+  }
 }
 
 const buildTaskCard = (task) =>{
@@ -172,16 +177,19 @@ const buildProjectList = (projects) => {
   let allProjectsContainer = document.getElementById("allProjects");
   let allProjects = projects;
   allProjectsContainer.innerHTML = "";
-  // if projects exsist build a conatiner for each project
-  if(projects){
-  allProjects.forEach((project, index) => {
+  // if projects array is not empty build a container for each project
+  if(projects.length != 0){
+  allProjects.forEach((project) => {
     // build container for project object
     let projectContainer = document.createElement("div");
     projectContainer.setAttribute("id", "project-"+project.getName());
     projectContainer.classList.add("project");
     // build project title
     let projectName = document.createElement("div");
-    let projectNameText = document.createTextNode("Project " + (Number(index)+1) + ": " + project.getName());
+    projectName.classList.add("project-title");
+    let projectNameText = document.createTextNode(`${project.getName()}`);
+    let deleteX = document.createElement("i");
+    deleteX.classList.add("fa-solid", "fa-x")
     let taskContainer = document.createElement("div");
     
     // build and reset task container
@@ -190,14 +198,27 @@ const buildProjectList = (projects) => {
 
     // append project
     projectName.appendChild(projectNameText);
+    projectName.appendChild(deleteX);
     projectContainer.appendChild(projectName);
     projectContainer.appendChild(taskContainer);
 
+    projectContainer.addEventListener("click", (e) => {
+      if(e.target.closest(".fa-x")){
+        projectHolder.deleteProject(project.getName());
+         buildProjectList(projectHolder.allProjects);
+         buildTaskList(taskHolder.allTasks);
+      }
+    })
     // append project to project container
     allProjectsContainer.appendChild(projectContainer);
   })
+}else{
+  // If All project length === 0 
+  const projectListContainerDefaultText = document.createTextNode("Use Project+ to add project!");
+  allProjectsContainer.appendChild(projectListContainerDefaultText);
 }
 }
+
 const removeModal = () => {
   const modal = document.getElementsByClassName("modal")[0];
   modal.remove();

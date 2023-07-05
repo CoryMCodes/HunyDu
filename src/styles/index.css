@@ -124,6 +124,11 @@ table {
 	
 }
 
+.project-title{
+	display: flex;
+	justify-content: space-between;
+}
+
 .project-container>.container-title{
 	text-align: start;
 }

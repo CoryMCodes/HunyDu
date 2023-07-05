@@ -1,13 +1,13 @@
 const taskHolder = (() => {
   let allTasks = [];
 
-  // remove task
+  // add task
   const addTask = (taskObj) => {
     allTasks.push(taskObj);
   }
 
+  // remove tasks
   const deleteTask = (string) => {
-    console.log("delte runs")
     let foundIndex = allTasks.findIndex((el) => el.getName() === string);
     if (foundIndex > -1){
       allTasks.splice(foundIndex, 1);
@@ -34,9 +34,24 @@ const projectHolder = (() => {
     allProjects.push(projObj);
   }
 
+  const deleteProject = (pName) => {
+    let foundIndex = allProjects.findIndex((el) => el.getName() === pName);
+    
+    if(foundIndex > -1){
+      // if project has tasks remove project from task
+      if(allProjects[foundIndex].getTasks().length > 0){
+        allProjects[foundIndex].getTasks().forEach(task => {
+          task.removeParentProject();
+        })
+      };
+      // remove project from array
+      allProjects.splice(foundIndex, 1);
+    }
+  }
 
 
-  return {allProjects, addProject}
+
+  return {allProjects, addProject, deleteProject}
 })();
 
 export {taskHolder, projectHolder}

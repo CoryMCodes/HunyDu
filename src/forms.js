@@ -99,15 +99,16 @@ const createProjectForm = () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     let submittedName =  document.querySelector("[name=ProjectName]").value;
-    
-    let projectTasks = document.querySelectorAll(".addTaskCheckbox");
-    projectTasks.forEach(task => {
-      if(task.checked){
-        let taskObj = taskHolder.getTaskByName(task.name);
+    let taskObjs = [];
+    let taskNames = document.querySelectorAll(".addTaskCheckbox");
+    taskNames.forEach(taskName => {
+      if(taskName.checked){
+        let taskObj = taskHolder.getTaskByName(taskName.name);
         taskObj.setParentProject(submittedName);
+        taskObjs.push(taskObj);
       }
     })
-    let newProject = projectFactory(submittedName);
+    let newProject = projectFactory(submittedName, ...taskObjs);
     
     projectHolder.addProject(newProject);
 
